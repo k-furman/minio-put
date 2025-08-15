@@ -9,7 +9,7 @@ import urllib.request
 
 # usage: ./mc-put.py my-bucket my-file.zip file2 'fileglob*'
 
-def upload(key, secret, host, bucket, filename):
+def upload(key, secret, host, bucket, filename, content_type):
     """
     call this function when using this file as a library
 
@@ -27,7 +27,6 @@ def upload(key, secret, host, bucket, filename):
         hostname = host
 
     resource     = f"/{bucket}/{base_name}"
-    content_type = "application/octet-stream"
     #date         = filetime(filename).strftime('%a, %d %b %Y %X %z')
     date         = tznow().strftime('%a, %d %b %Y %X %z')
     _signature   = f"PUT\n\n{content_type}\n{date}\n{resource}"
@@ -65,6 +64,7 @@ def parse_cmdline(args):
                         help="minio/s3 secret, default envvar S3_SECRET")
     parser.add_argument('-H', '--host', default=os.getenv('S3_HOST', ''), type=str,
                         help="minio/s3 host, default envvar S3_HOST")
+    parser.add_argument('-t', '--type', type=str, default="application/octet-stream" help="type of file to be pushed")
     parser.add_argument('bucket', help="name of bucket")
     parser.add_argument('files', nargs='+', help="file list, wildcards allowed")
 
@@ -137,7 +137,7 @@ def main(args):
 
     for filename in files:
         try:
-            upload(args.key, args.secret, args.host, args.bucket, filename)
+            upload(args.key, args.secret, args.host, args.bucket, filename, args.content_type)
             print(f"uploaded: {filename}")
         except urllib.error.HTTPError as e:
             print("error uploading: {}".format(filename))
