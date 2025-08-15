@@ -64,7 +64,7 @@ def parse_cmdline(args):
                         help="minio/s3 secret, default envvar S3_SECRET")
     parser.add_argument('-H', '--host', default=os.getenv('S3_HOST', ''), type=str,
                         help="minio/s3 host, default envvar S3_HOST")
-    parser.add_argument('-t', '--type', type=str, default="application/octet-stream" help="type of file to be pushed")
+    parser.add_argument('-t', '--type', type=str, default="application/octet-stream", help="type of file to be pushed")
     parser.add_argument('bucket', help="name of bucket")
     parser.add_argument('files', nargs='+', help="file list, wildcards allowed")
 
