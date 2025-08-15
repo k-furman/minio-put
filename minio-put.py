@@ -38,6 +38,7 @@ def upload(key, secret, host, bucket, filename):
         'Host':          hostname,
         'Date':          date,                      # eg. Sat, 03 Mar 2018 10:11:16 -0700
         'Content-Type':  content_type,
+        'Content-Length': os.path.getsize(filename),
         'Authorization': f"AWS {key}:{signature}",
     }
     # import pprint
