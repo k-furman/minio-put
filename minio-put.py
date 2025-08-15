@@ -137,7 +137,7 @@ def main(args):
 
     for filename in files:
         try:
-            upload(args.key, args.secret, args.host, args.bucket, filename, args.content_type)
+            upload(args.key, args.secret, args.host, args.bucket, filename, args.type)
             print(f"uploaded: {filename}")
         except urllib.error.HTTPError as e:
             print("error uploading: {}".format(filename))
