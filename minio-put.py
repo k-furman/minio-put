@@ -43,7 +43,7 @@ def upload(key, secret, host, bucket, filename, content_type):
     # import pprint
     # pprint.pprint(headers)
 
-    req = urllib.request.Request(url, data=open(filename), method='PUT', headers=headers)
+    req = urllib.request.Request(url, data=open(filename, encoding='utf-8'), method='PUT', headers=headers)
     resp = urllib.request.urlopen(req)
     return resp.read() or True
 
